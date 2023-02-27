@@ -5,8 +5,8 @@ const path = require('path')
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 700,
+    height: 650,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       sandbox: false,
@@ -45,8 +45,13 @@ app.on('window-all-closed', function () {
 
 ipcMain.handle('open-file', function() {
   return dialog.showOpenDialogSync({
-    title: "Choose a text file",
-    filters: [{name: "Text", extensions: ["txt"]}],
+    title: "Choose a PNG file",
+    filters: [{name: "PNG images", extensions: ["png"]}],
     properties: ["openFile"]
+  })
+})
+ipcMain.handle('create-file', function() {
+  return dialog.showSaveDialogSync({
+    filters: [{name: "PNG images", extensions: ["png"]}],
   })
 })

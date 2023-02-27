@@ -7,13 +7,18 @@
  */
 
 document.getElementById('open-file').addEventListener('click', async function(e) {
-    await editorCommands.showOpenDialog()
-    editorCommands.readOpenFile(function(data) {
-        console.log(data)
-        document.getElementById('editor').value = data;
+    const path = await editorCommands.showOpenDialog()
+    var img = document.createElement('img')
+    img.addEventListener('load', function() {
+        ctx.drawImage(img, 0, 0, 600, 500)
     })
+    img.src = path;
 })
 
 document.getElementById('save-file').addEventListener('click', function(e) {
-    editorCommands.saveOpenFile(document.getElementById('editor').value)
+    canvas.toBlob(function(blob) {
+        blob.arrayBuffer().then(function(buffer) {
+            editorCommands.saveOpenFile(buffer)
+        })
+    }, 'image/png')
 })
