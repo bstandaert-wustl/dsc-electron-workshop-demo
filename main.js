@@ -42,16 +42,3 @@ app.on('window-all-closed', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
-ipcMain.handle('open-file', function() {
-  return dialog.showOpenDialogSync({
-    title: "Choose a PNG file",
-    filters: [{name: "PNG images", extensions: ["png"]}],
-    properties: ["openFile"]
-  })
-})
-ipcMain.handle('create-file', function() {
-  return dialog.showSaveDialogSync({
-    filters: [{name: "PNG images", extensions: ["png"]}],
-  })
-})
